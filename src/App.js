@@ -1,8 +1,9 @@
+import CarView from "./components/CarView";
 
 function App() {
   return (
     <div className="App">
-      <h1>app car color</h1>
+      <CarView />
     </div>
   );
 }
