@@ -1,9 +1,11 @@
-import CarView from "./components/CarView";
+// import CarView from "./components/CarView";
+import CarViewUpdate from "./components/CarViewUpdate";
 
 function App() {
   return (
     <div className="App">
-      <CarView />
+      {/* <CarView /> */}
+      <CarViewUpdate />
     </div>
   );
 }
