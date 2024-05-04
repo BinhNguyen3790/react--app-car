@@ -41,16 +41,23 @@ class CarViewUpdate extends Component {
   };
 
   componentDidUpdate = () => {
-    document.querySelector("#currentCar").innerHTML = "";
+    document.querySelector("#currentCar canvas").remove();
+    document.querySelector("#renderScript").innerHTML = "";
+
     let scriptSrc = document.createElement("script");
     scriptSrc.src = "https://cdn.scaleflex.it/filerobot/js-cloudimage-360-view/v2.0.0.lazysizes.min.js";
-
-    document.querySelector("#renderScript").innerHTML = "";
     document.querySelector("#renderScript").appendChild(scriptSrc);
   };
 
   renderCar = (newCar) => {
     this.setState(newCar);
+  };
+
+  renderWheel = (newWheel) => {
+    let objWheel = this.state.wheels.find((item) => item.idWheel === newWheel.idWheel);
+    if (objWheel !== -1) {
+      this.setState({ ...this.state, srcImg: objWheel.srcImg });
+    }
   };
 
   renderCarType = () => {
@@ -81,7 +88,13 @@ class CarViewUpdate extends Component {
   renderWheels = () => {
     return ArrayWheels.map((wheel, index) => {
       return (
-        <li key={index} className="list-group-item">
+        <li
+          onClick={() => {
+            this.renderWheel(wheel);
+          }}
+          key={index}
+          className="list-group-item"
+        >
           <div className="row">
             <div className="col-3">
               <img className="w-100" src={wheel.img} alt={wheel.title}></img>
@@ -110,31 +123,31 @@ class CarViewUpdate extends Component {
                   <tbody>
                     <tr>
                       <td>Color</td>
-                      <td>Black</td>
+                      <td>{this.state.color}</td>
                     </tr>
                     <tr>
                       <td>Price</td>
-                      <td>$19,555</td>
+                      <td>{this.state.price}</td>
                     </tr>
                     <tr>
                       <td>Engine Type</td>
-                      <td>In-Line 4-Cylinder</td>
+                      <td>{this.state.engineType}</td>
                     </tr>
                     <tr>
                       <td>Displacement</td>
-                      <td>1996 cc</td>
+                      <td>{this.state.displacement}</td>
                     </tr>
                     <tr>
                       <td>Horsepower</td>
-                      <td>158 @ 6500 rpm</td>
+                      <td>{this.state.horsepower}</td>
                     </tr>
                     <tr>
                       <td>Torque</td>
-                      <td>138 lb-ft @ 4200 rpm</td>
+                      <td>{this.state.torque}</td>
                     </tr>
                     <tr>
                       <td>Redline</td>
-                      <td>6700 rpm</td>
+                      <td>{this.state.redline}</td>
                     </tr>
                   </tbody>
                 </table>
